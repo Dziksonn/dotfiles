@@ -51,7 +51,7 @@ in
     settings = {
       git.pagers = [
         {
-          pager = "delta --dark --pager='less -RF'";
+          pager = "delta --dark --pager='-RF'";
         }
       ];
     };
