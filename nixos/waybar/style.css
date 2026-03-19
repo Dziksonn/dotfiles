@@ -1,0 +1,138 @@
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 13px;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: @base;
+  color: @text;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  background-color: @base;
+  padding: 0 4px;
+}
+
+/* ── Workspaces ── */
+#workspaces {
+  margin: 4px 4px;
+}
+
+#workspaces button {
+  padding: 2px 8px;
+  color: @subtext0;
+  background-color: @surface0;
+  border-radius: 6px;
+  margin: 4px 2px;
+  transition: all 0.2s ease;
+}
+
+#workspaces button:hover {
+  background-color: @surface1;
+  color: @text;
+}
+
+#workspaces button.active {
+  background-color: @mauve;
+  color: @base;
+  font-weight: bold;
+}
+
+#workspaces button.urgent {
+  background-color: @red;
+  color: @base;
+}
+
+/* ── Shared module base ── */
+#custom-clock,
+#memory,
+#network,
+#pulseaudio,
+#battery,
+#backlight,
+#bluetooth,
+#clock,
+#custom-lock,
+#custom-gpu,
+#custom-uptime,
+#custom-pomodoro,
+#custom-cpu {
+  background-color: @surface0;
+  border-radius: 8px;
+  padding: 2px 10px;
+  margin: 4px 2px;
+  transition: background-color 0.2s ease;
+}
+
+/* ── Individual colors ── */
+#clock,
+#custom-clock {
+  color: @blue;
+  padding: 0px 10px;
+}
+
+#memory {
+  color: @yellow;
+}
+
+#custom-gpu {
+  color: @mauve;
+}
+
+#network {
+  color: @sky;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#pulseaudio {
+  color: @teal;
+}
+
+#pulseaudio.muted {
+  color: @overlay0;
+}
+
+#bluetooth {
+  color: @sapphire;
+}
+
+#custom-uptime {
+  color: @peach;
+}
+
+#custom-pomodoro {
+  color: @pink;
+}
+
+#custom-cpu {
+  color: @green;
+}
+
+#custom-cpu.critical {
+  color: @red;
+  background-color: @surface1;
+  animation: blink 1s step-start infinite;
+}
+
+/* ── Tooltip ── */
+tooltip {
+  background-color: @surface0;
+  border: 1px solid @mauve;
+  border-radius: 8px;
+  color: @text;
+}
+
+/* ── Critical blink animation ── */
+@keyframes blink {
+  50% {
+    opacity: 0.5;
+  }
+}
