@@ -73,6 +73,12 @@ in
     home.stateVersion = "25.11";
     imports = [ <catppuccin/modules/home-manager> ];
     nixpkgs.config.allowUnfree = true;
+
+    #config symlinks
+    home.file = builtins.mapAttrs (_: src: { source = src; }) {
+      ".zshrc" = ../zshrc;
+    };
+
     catppuccin = {
       enable = true;
       flavor = "mocha";
@@ -97,6 +103,7 @@ in
           };
         };
       };
+
       git = {
         enable = true;
         settings = {
@@ -106,6 +113,7 @@ in
           init.defaultBranch = "main";
         };
       };
+      
       lazygit = {
         enable = true;
         settings = {
@@ -114,6 +122,7 @@ in
           ];
         };
       };
+
       kitty = {
         enable = true;
         font.name = "JetBrainsMono Nerd Font";
@@ -121,11 +130,18 @@ in
         settings = {
           shell = "/run/current-system/sw/bin/zsh";
         };
+        extraConfig = ''
+          map ctrl+left send_text all \x1b[1;5D
+          map ctrl+right send_text all \x1b[1;5C
+          map ctrl+backspace send_text all \x08
+        '';
       };
+
       waybar = {
         enable = true;
         style = builtins.readFile ./waybar/style.css;
       };
+
       java = {
         enable = true;
         package = pkgs.jdk21;
@@ -338,7 +354,7 @@ in
   console.keyMap = "pl2";
   time.timeZone = "Europe/Warsaw";
   time.hardwareClockInLocalTime = true;
-  
+
   # fileSystems."/mnt/windows" = {
   #   device = "/dev/nvme0n1p5";
   #   fsType = "ntfs-3g";
