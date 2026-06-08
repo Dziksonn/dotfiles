@@ -80,6 +80,7 @@ in
       ".config/hypr/hyprland.conf" = ../hypr/hyprland.conf;
       ".config/hypr/hyprscripts" = ../hypr/hyprscripts;
       ".config/waybar" = ../waybar;
+      ".config/rofi" = ../rofi;
     };
 
     catppuccin = {

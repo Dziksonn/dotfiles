@@ -1,0 +1,6 @@
+
+@theme "./.config/rofi/catppuccin-default.rasi"
+
+configuration {
+    modes: "drun,run,scripts:~/.config/rofi/scripts.sh";
+}
