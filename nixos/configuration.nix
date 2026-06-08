@@ -79,6 +79,7 @@ in
       ".zshrc" = ../zshrc;
       ".config/hypr/hyprland.conf" = ../hypr/hyprland.conf;
       ".config/hypr/hyprscripts" = ../hypr/hyprscripts;
+      ".config/waybar" = ../waybar;
     };
 
     catppuccin = {
@@ -94,6 +95,7 @@ in
       btop.enable = true;
       hyprlock.enable = true;
       vscode.enable = true;
+      waybar.enable = true;
       ssh = {
         enable = true;
         enableDefaultConfig = false;
@@ -137,11 +139,6 @@ in
           map ctrl+right send_text all \x1b[1;5C
           map ctrl+backspace send_text all \x08
         '';
-      };
-
-      waybar = {
-        enable = true;
-        style = builtins.readFile ./waybar/style.css;
       };
 
       java = {

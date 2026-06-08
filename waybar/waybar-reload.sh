@@ -1,0 +1,1 @@
+pkill -SIGUSR2 waybar && sleep 0.5 && pkill -SIGUSR1 waybar
