@@ -77,7 +77,8 @@ in
     #config symlinks
     home.file = builtins.mapAttrs (_: src: { source = src; }) {
       ".zshrc" = ../zshrc;
-      ".config/hypr" = ../hypr;
+      ".config/hypr/hyprland.conf" = ../hypr/hyprland.conf;
+      ".config/hypr/hyprscripts" = ../hypr/hyprscripts;
     };
 
     catppuccin = {
