@@ -3,8 +3,10 @@
   "position": "top",
   "margin-bottom": 0,
   "spacing": 0,
-  "mode": "hide",
+  "mode": "dock",
   "start_hidden": true,
+  "on-sigusr1": "show",
+  "on-sigusr2": "hide",
   "modules-left": [
     "hyprland/workspaces",
     "tray"
