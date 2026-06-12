@@ -280,6 +280,7 @@ in
     krita
     prismlauncher
     nix-tree
+    localsend
   ];
 
   fonts.packages = with pkgs; [
