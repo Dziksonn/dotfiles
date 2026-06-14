@@ -281,6 +281,7 @@ in
     prismlauncher
     nix-tree
     localsend
+    mtr #traceroute thingy
   ];
 
   fonts.packages = with pkgs; [
