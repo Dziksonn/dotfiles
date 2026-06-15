@@ -97,6 +97,7 @@ in
       hyprlock.enable = true;
       vscode.enable = true;
       waybar.enable = true;
+      micro.enable = true;
       ssh = {
         enable = true;
         enableDefaultConfig = false;
@@ -282,6 +283,7 @@ in
     nix-tree
     localsend
     mtr #traceroute thingy
+    micro-full #file editor
   ];
 
   fonts.packages = with pkgs; [
