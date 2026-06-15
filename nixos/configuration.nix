@@ -77,7 +77,7 @@ in
     #config symlinks
     home.file = builtins.mapAttrs (_: src: { source = src; }) {
       ".zshrc" = ../zshrc;
-      ".config/hypr/hyprland.conf" = ../hypr/hyprland.conf;
+      ".config/hypr/hyprland.lua" = ../hypr/hyprland.lua;
       ".config/hypr/hyprscripts" = ../hypr/hyprscripts;
       ".config/waybar" = ../waybar;
       ".config/rofi" = ../rofi;
