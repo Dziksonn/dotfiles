@@ -33,7 +33,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("clipse -listen")
     hl.exec_cmd("systemctl --user start hyprpolkitagent")
     -- hl.exec_cmd("wlsunset -l 50.0642 -L 19.9458 -t 4000:5500:7000")
-    hl.exec_cmd(terminal .. " --class clipse", { workspace = "1 silent", monitor = "DP-1" })  -- firefox
     hl.exec_cmd("firefox",        { workspace = "1 silent", monitor = "DP-1" })
     hl.exec_cmd("vesktop",        { workspace = "2 silent", monitor = "DP-2" })
     hl.exec_cmd("easyeffects")
@@ -240,8 +239,6 @@ hl.bind(mainMod .. " + F",         hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }))
 hl.bind(mainMod .. " + R",         hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(scriptsMenu))
-hl.bind(mainMod .. " + P",         hl.dsp.window.pseudo())        -- dwindle pseudotile
-hl.bind(mainMod .. " + J",         hl.dsp.layout("togglesplit"))  -- dwindle split direction
 
 -- Focus
 hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left"  }))
@@ -255,27 +252,20 @@ hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
 hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "d" }))
 
--- Switch workspace (mainMod + 1-5 → WS 1-5 on DP-1; mainMod + CTRL + 1-5 → WS 6-10 on DP-2)
-for i = 1, 5 do
-    hl.bind(mainMod .. " + " .. i,             hl.dsp.focus({ workspace = i }))
-    hl.bind(mainMod .. " + CTRL + " .. i,      hl.dsp.focus({ workspace = i + 5 }))
+local function ws_on_current_monitor(n)
+    local mon = hl.get_active_monitor()
+    local offset = (mon.name == "DP-2") and 5 or 0
+    return n + offset
 end
-hl.bind(mainMod .. " + 6",  hl.dsp.focus({ workspace = 6  }))
-hl.bind(mainMod .. " + 7",  hl.dsp.focus({ workspace = 7  }))
-hl.bind(mainMod .. " + 8",  hl.dsp.focus({ workspace = 8  }))
-hl.bind(mainMod .. " + 9",  hl.dsp.focus({ workspace = 9  }))
-hl.bind(mainMod .. " + 0",  hl.dsp.focus({ workspace = 10 }))
 
--- Move window to workspace
 for i = 1, 5 do
-    hl.bind(mainMod .. " + SHIFT + " .. i,             hl.dsp.window.move({ workspace = i }))
-    hl.bind(mainMod .. " + SHIFT + CTRL + " .. i,      hl.dsp.window.move({ workspace = i + 5 }))
+    hl.bind(mainMod .. " + " .. i, function()
+        hl.dispatch(hl.dsp.focus({ workspace = ws_on_current_monitor(i) }))
+    end)
+    hl.bind(mainMod .. " + SHIFT + " .. i, function()
+        hl.dispatch(hl.dsp.window.move({ workspace = ws_on_current_monitor(i) }))
+    end)
 end
-hl.bind(mainMod .. " + SHIFT + 6", hl.dsp.window.move({ workspace = 6  }))
-hl.bind(mainMod .. " + SHIFT + 7", hl.dsp.window.move({ workspace = 7  }))
-hl.bind(mainMod .. " + SHIFT + 8", hl.dsp.window.move({ workspace = 8  }))
-hl.bind(mainMod .. " + SHIFT + 9", hl.dsp.window.move({ workspace = 9  }))
-hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = 10 }))
 
 -- Special / scratchpad workspace
 hl.bind(mainMod .. " + D",         hl.dsp.workspace.toggle_special("magic"))
