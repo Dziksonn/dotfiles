@@ -304,6 +304,11 @@ in
     enable = true;
   };
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+
   hardware.graphics = {
     enable = true;
   };
