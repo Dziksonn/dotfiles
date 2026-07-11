@@ -23,8 +23,14 @@ in
   nixpkgs.config.allowUnfree = true;
 
   nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
-    settings.auto-optimise-store = true;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+
+      # Preserve desktop responsiveness during builds.
+      max-jobs = 4;
+      cores = 4;
+    };
     gc = {
       automatic = true;
       dates = "weekly";
@@ -40,10 +46,7 @@ in
       enable = true;
       pkiBundle = "/var/lib/sbctl";
     };
-    resumeDevice = "/dev/nvme0n1p5";
     kernelParams = [
-      "resume=/dev/nvme0n1p5"
-      "resume_offset=14252032"
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
     kernel.sysctl = {
@@ -55,7 +58,29 @@ in
   zramSwap = {
     enable = true;
     algorithm = "zstd";
-    memoryPercent = 100; # Creates compressed swap = ~50% extra effective RAM
+    memoryPercent = 100;
+  };
+
+  services.earlyoom = {
+    enable = true;
+
+    # Preserve enough zram headroom for a responsive desktop.
+    freeMemThreshold = 15;
+    freeMemKillThreshold = 10;
+    freeSwapThreshold = 50;
+    freeSwapKillThreshold = 35;
+
+    # Avoid verbose per-second journal logging.
+    enableDebugInfo = false;
+    enableNotifications = true;
+    reportInterval = 0;
+    # Protect the interactive session and prefer terminating build tools.
+    extraArgs = [
+      "--avoid"
+      "(^|/)(Hyprland|Xwayland|waybar|mako|pipewire|wireplumber|xdg-desktop-portal(-hyprland)?|dbus-broker|firefox|vesktop)$"
+      "--prefer"
+      "(^|/)(cc1|cc1plus|clang|clang[+][+]|rustc|ld|ld[.]lld|make|ninja|cmake|node|java)$"
+    ];
   };
 
   networking = {
