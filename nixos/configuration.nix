@@ -215,6 +215,7 @@ in
   };
 
   services = {
+    tailscale.enable = true;
     #X11 windowing system, can be disabled for wayland
     xserver = {
       enable = true;
@@ -309,6 +310,7 @@ in
     localsend
     mtr #traceroute thingy
     micro-full #file editor
+    bubblewrap #sandboxing tool
   ];
 
   fonts.packages = with pkgs; [
